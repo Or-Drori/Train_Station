@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using Train_Station.DB;
+using Train_Station.IsraelCitiesAPI;
 using Train_Station.Users;
 using Train_Station.Wallet;
 
@@ -13,12 +14,11 @@ namespace Train_Station.Stations
 {
     public class StationManager
     {
-        private JsonDBManager<Station> _stationDbManager;
+        private IsraeliCitiesApiManager _israeliCitiesApiManager = new IsraeliCitiesApiManager();
         private WalletManager _walletManager;
 
-        public StationManager(JsonDBManager<Station> stationJsonDb, WalletManager walletManager)
+        public StationManager(WalletManager walletManager)
         {
-            _stationDbManager = stationJsonDb;
             _walletManager = walletManager;
         }
 
@@ -75,7 +75,7 @@ namespace Train_Station.Stations
 
         public Station? GetStation(string stationName)
         {
-            var station = _stationDbManager.GetByName(stationName);
+            var station = _israeliCitiesApiManager.GetCitiesByNameAsync(stationName);
             return station;
         }
 

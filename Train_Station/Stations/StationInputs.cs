@@ -15,13 +15,13 @@ namespace Train_Station.Stations
         public static string PromtForSourceStation()
         {
             Console.Write("Source Station - ");
-            string sourceStation = Console.ReadLine().ToLower();
+            string sourceStation = Console.ReadLine();
             return sourceStation;
         }
         public static string PromtForDestenetionStation()
         {
             Console.Write("destination Station - ");
-            string destinationStation = Console.ReadLine().ToLower();
+            string destinationStation = Console.ReadLine();
             return destinationStation;
         }
     }

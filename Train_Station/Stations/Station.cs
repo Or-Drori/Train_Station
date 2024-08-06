@@ -11,13 +11,17 @@ namespace Train_Station.Stations
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Coordinate Coordinate { get; set; }
+        public GeoCoordinate Coordinate { get; set; }
 
-        public Station(int id, string name, Coordinate coordinate)
+        public Station(int id, string name, GeoCoordinate coordinate)
         {
             this.Id = id;
             this.Name = name;
             this.Coordinate = coordinate;
+        }
+        public Station()
+        {
+              
         }
 
 

@@ -2,7 +2,7 @@
 {
     public interface IStation
     {
-        Coordinate Coordinate { get; set; }
+        GeoCoordinate Coordinate { get; set; }
         int Id { get; set; }
         string Name { get; set; }
     }

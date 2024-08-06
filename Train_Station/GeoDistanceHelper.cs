@@ -8,12 +8,12 @@ namespace Train_Station
 {
     public static class GeoDistanceHelper
     {
-        public static double CalculateDistance(Coordinate coordinate1, Coordinate coordinate2)
+        public static double CalculateDistance(GeoCoordinate coordinate1, GeoCoordinate coordinate2)
         {
-            double lat1 = coordinate1.Lat;
-            double lon1 = coordinate1.Long;
-            double lat2 = coordinate2.Lat;
-            double lon2 = coordinate2.Long;
+            double lat1 = coordinate1.latitude;
+            double lon1 = coordinate1.longitude;
+            double lat2 = coordinate2.latitude;
+            double lon2 = coordinate2.longitude;
             // Radius of the Earth in kilometers
             const double R = 6371.0;
 
