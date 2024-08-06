@@ -1,9 +1,9 @@
-﻿namespace Train_Station.Station
+﻿namespace Train_Station.Stations
 {
     public interface IStation
     {
-        string Name { get; set; }
-        Coordinate coordinate { get; set; }
+        Coordinate Coordinate { get; set; }
         int Id { get; set; }
+        string Name { get; set; }
     }
 }

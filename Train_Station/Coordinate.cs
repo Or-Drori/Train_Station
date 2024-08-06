@@ -10,5 +10,11 @@ namespace Train_Station
     {
         public double Lat;
         public double Long;
+
+        public Coordinate(double lat, double longg)
+        {
+            Lat = lat;
+            Long = longg;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Train_Station.Station;
+using Train_Station.Stations;
 using Train_Station.Users;
 
 namespace Train_Station.DB
@@ -20,7 +20,7 @@ namespace Train_Station.DB
             {
                 if (dBList == null)
                 {
-                    dBList = GetAll();
+                    dBList = GetAll() ?? new List<T>();
                 }
                 return dBList;
             }
@@ -51,6 +51,12 @@ namespace Train_Station.DB
             T? entity = entities.FirstOrDefault(entity => entity.Id == id);
             return entity;
         }
+        public T? GetByName(string name)
+        {
+            List<T> entities = GetAll();
+            T? entity = entities.FirstOrDefault(entity => entity.Name.ToLower() == name.ToLower());
+            return entity;
+        }
 
         public void Update(T entity)
         {
@@ -71,6 +77,11 @@ namespace Train_Station.DB
         public bool CheckIfIdExists(int id)
         {
             bool IdExists = DBList.Any(x => x.Id == id);
+            return IdExists;
+        }
+        public bool CheckIfNameExists(string name)
+        {
+            bool IdExists = DBList.Any(x => x.Name == name);
             return IdExists;
         }
     }

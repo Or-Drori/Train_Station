@@ -8,13 +8,21 @@ namespace Train_Station.Stations
 {
     public static class StationInputs
     {
-        public static (string? source, string? destention)? PromptForTravel()
+        public static void PromptForTravel()
         {
-            Console.WriteLine("Enter Source Station and destination station");
-            string? sourceStation = Console.ReadLine();
-            string? destinationStation = Console.ReadLine();
-            var Travel = (sourceStation, destinationStation);
-            return Travel;
+            Console.WriteLine("Enter Source and Destenetion stations");
+        }
+        public static string PromtForSourceStation()
+        {
+            Console.Write("Source Station - ");
+            string sourceStation = Console.ReadLine().ToLower();
+            return sourceStation;
+        }
+        public static string PromtForDestenetionStation()
+        {
+            Console.Write("destination Station - ");
+            string destinationStation = Console.ReadLine().ToLower();
+            return destinationStation;
         }
     }
 }
