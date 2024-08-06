@@ -23,6 +23,7 @@ namespace Train_Station.Wallet
         }
         public void SubtractMoney(User user, double money)
         {
+
             user.Wallet -= money;
             _userDbManager.Update(user);
         }

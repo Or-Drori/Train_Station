@@ -18,7 +18,8 @@ namespace Train_Station
             JsonDBManager<User> userDBManager = new JsonDBManager<User>("Resources\\Users.json");
             JsonDBManager<Station> stationDBManager = new JsonDBManager<Station>("Resources\\Stations.json");
             LoginManager loginManager = new LoginManager(userDBManager);
-            StationManager stationManager = new StationManager(stationDBManager);
+            WalletManager walletManager = new WalletManager(userDBManager);
+            StationManager stationManager = new StationManager(stationDBManager, walletManager);
             User? user = null;
 
             //Coordinate c1 = new Coordinate(32.08270731070964, 34.78131289962336);
@@ -52,16 +53,14 @@ namespace Train_Station
                 {
                     case MenuOptions.AddingMoney:
                         double money = UserInputs.PromptForChangingWallet(MenuOptions.AddingMoney);
-                        WalletManager walletManager = new WalletManager(userDBManager);
                         walletManager.AddMoney(user, money);
                         break;
                     case MenuOptions.SubtractingMoney:
                         money = UserInputs.PromptForChangingWallet(MenuOptions.SubtractingMoney);
-                        walletManager = new WalletManager(userDBManager);
                         walletManager.SubtractMoney(user, money);
                         break;
                     case MenuOptions.BuyingTicket:
-                        stationManager.PlanTravel();
+                        stationManager.PlanTravel(user);
                         
                         break;
                     default:

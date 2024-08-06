@@ -7,24 +7,34 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Train_Station.DB;
 using Train_Station.Users;
+using Train_Station.Wallet;
 
 namespace Train_Station.Stations
 {
     public class StationManager
     {
         private JsonDBManager<Station> _stationDbManager;
+        private WalletManager _walletManager;
 
-        public StationManager(JsonDBManager<Station> stationJsonDb)
+        public StationManager(JsonDBManager<Station> stationJsonDb, WalletManager walletManager)
         {
             _stationDbManager = stationJsonDb;
+            _walletManager = walletManager;
         }
 
-
-        public void PlanTravel()
+        public void PlanTravel(User user)
         {
             StationInputs.PromptForTravel();
             (var sourceStation, var destinationStation) = ValidateStations();
-            PrintDistanceCost(sourceStation, destinationStation);
+            double cost = PrintDistanceCost(sourceStation, destinationStation);
+            if (user.Wallet - cost < 0)
+            {
+                Console.WriteLine("You dont have enough money");
+            }
+            else
+            { 
+                _walletManager.SubtractMoney(user, cost);
+            }
         }
 
         private (Station ,Station) ValidateStations()
@@ -49,13 +59,12 @@ namespace Train_Station.Stations
             return (sourceStation, destinationStation);
         }
 
-        public void PrintDistanceCost(Station sourceStation, Station destinationStation)
+        public double PrintDistanceCost(Station sourceStation, Station destinationStation)
         {
-
             var distance = GeoDistanceHelper.CalculateDistance(sourceStation.Coordinate, destinationStation.Coordinate);
             var cost = TravelCostAlgorithm(distance);
-
             ConsoleUtils.WriteWithColor($"Cost of the travel: {cost.ToString("F2")}", ConsoleColor.Red);
+            return cost;
         }
 
         public double TravelCostAlgorithm(double distance)

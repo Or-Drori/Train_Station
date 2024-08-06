@@ -32,7 +32,7 @@ namespace Train_Station
             var initialColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
 
-            Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Gender: {user.Gender}, Wallet: {user.Wallet}");
+            Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Gender: {user.Gender}, Wallet: {user.Wallet.ToString("f2")}");
             Console.ForegroundColor = initialColor;
         }
 
