@@ -1,6 +1,8 @@
-﻿using System.Data.SqlTypes;
+﻿using System.Collections.Concurrent;
+using System.Data.SqlTypes;
 using System.Text.Json.Nodes;
 using Train_Station.DB;
+using Train_Station.IsraelCitiesAPI;
 using Train_Station.Wallet;
 
 namespace Train_Station.Users
@@ -135,6 +137,15 @@ namespace Train_Station.Users
             return id;
         }
         
+        public static void PrintAllStations(IsraeliCitiesApiManager citiesApiManager)
+        {
+            Console.Clear();
+            var stations = citiesApiManager.GetCitiesAsync();
+            foreach (var station in stations)
+            {
+                Console.WriteLine($"{station.Name}");
+            }
+        }
 
 
     }

@@ -17,7 +17,7 @@ namespace Train_Station.IsraelCitiesAPI
         private string appId = "3weosiutAnAaPOxJsZSr2vCMvYe03u6exstY2RE6"; // Fake app's application id
         private string masterKey = "6OxeLaPRkf89GyFBcbopxOgojfBGO9PXtpQgjyBK";
 
-        public IsraelCitiesApiResponse GetCitiesAsync()
+        public List<Station> GetCitiesAsync()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Train_Station.IsraelCitiesAPI
                 var responseBody = responce.Content.ReadAsStringAsync().Result;
 
                 var citiesResponce = JsonConvert.DeserializeObject<IsraelCitiesApiResponse>(responseBody);
-                return citiesResponce;
+                return ConvertToListStation(citiesResponce);
             }
             catch (HttpRequestException e)
             {
@@ -71,7 +71,7 @@ namespace Train_Station.IsraelCitiesAPI
 
         }
 
-        public Station? ConvertToStation(IsraelCitiesApiResponse apiResponse)
+        private Station? ConvertToStation(IsraelCitiesApiResponse apiResponse)
         {
             if (!apiResponse.results.Any())
             {
@@ -79,14 +79,21 @@ namespace Train_Station.IsraelCitiesAPI
             }
             var cityProperty = apiResponse.results.First();
 
-            GeoCoordinate geoCoordinate = new(cityProperty.location.latitude, cityProperty.location.longitude);
-            Station station = new Station()
+            return cityProperty.ToStation();
+        }
+        private List<Station> ConvertToListStation(IsraelCitiesApiResponse apiResponse)
+        {
+            if (!apiResponse.results.Any())
             {
-                Coordinate = geoCoordinate,
-                Name = cityProperty.name,
-                Id = cityProperty.cityId
-            };
-            return station;
+                return null;
+            }
+            List<Station> stations = new List<Station>();
+            foreach (var result in apiResponse.results)
+            {
+                var resultStation = result.ToStation();
+                stations.Add(resultStation);
+            }
+            return stations;
         }
     }
 }

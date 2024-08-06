@@ -10,7 +10,9 @@ namespace Train_Station.Users
         [Description("Substracting Money")]
         SubtractingMoney,
         [Description("Buying Ticket")]
-        BuyingTicket
+        BuyingTicket,
+        [Description("Show All Stations")]
+        ShowStations
     
     }
 }

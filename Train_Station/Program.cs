@@ -60,7 +60,9 @@ namespace Train_Station
                         break;
                     case MenuOptions.BuyingTicket:
                         stationManager.PlanTravel(user);
-                        
+                        break;
+                    case MenuOptions.ShowStations:
+                        UserInputs.PrintAllStations(israeliCitiesApiManager);
                         break;
                     default:
                         Console.Clear();
